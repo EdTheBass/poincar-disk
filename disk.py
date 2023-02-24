@@ -6,8 +6,11 @@ HEIGHT = 500
 
 D_RADIUS = 200
 
-def circ_to_absolute(theta):
-    x,y = [np.sin(theta), np.cos(theta)]
+def get_point(theta):
+    return [np.sin(theta), np.cos(theta)]
+
+def unit_to_absolute(p):
+    x,y = p
     x *= D_RADIUS
     y *= D_RADIUS
     return [WIDTH//2+x, HEIGHT//2+y]
@@ -30,18 +33,20 @@ g = game.Game(WIDTH, HEIGHT, "Poincaré Disk", [])
 disk = game.Circle(g.screen, WIDTH//2, HEIGHT//2, D_RADIUS, (255, 255, 255), border=1)
 
 t1 = 0.5
-p1_pos = circ_to_absolute(t1)
+up1_pos = get_point(t1)
+p1_pos = unit_to_absolute(up1_pos)
 p1 = game.Point(g.screen, p1_pos[0], p1_pos[1], (255, 0, 0))
 
 t2 = np.pi
-p2_pos = circ_to_absolute(t2)
+up2_pos = get_point(t2)
+p2_pos = unit_to_absolute(up2_pos)
 p2 = game.Point(g.screen, p2_pos[0], p2_pos[1], (0, 255, 0))
 
 ax,ay = arc_center(p1_pos, p2_pos)
-radius = radius(p1_pos, ax, ay)
-arc = game.Circle(g.screen, ax, ay, radius, (0, 0, 255), border=1)
+rad = radius(p1_pos, ax, ay)
+arc = game.Circle(g.screen, ax, ay, rad, (0, 0, 255), border=1)
 
-print(radius)
+print(ax, ay, rad)
 
 
 g.objects.append(disk)
